@@ -15,30 +15,31 @@
       background-position: center;
       background-repeat: no-repeat;
       height: 100vh;
-      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .card {
       max-width: 600px;
-      background: #fff;
-      margin: auto;
+      background: rgba(0, 0, 0, 0.5); /* transparan gelap */
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      color: #f1f1f1;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
     }
 
     h1 {
       text-align: center;
       font-size: 1.6rem;
       margin-bottom: 25px;
-      color: #1f2937;
+      color: #fff;
     }
 
     .info {
-      background: #e9f4ff;
+      background: rgba(255, 255, 255, 0.1);
       padding: 12px 18px;
       border-radius: 12px;
       margin: 10px 0;
@@ -46,6 +47,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 1rem;
+      color: #f8f8f8;
     }
 
     .info button {
@@ -113,28 +115,29 @@
     }
 
     .runtime {
-      background: #f0faff;
+      background: rgba(255,255,255,0.1);
       padding: 10px 15px;
       border-radius: 10px;
       margin-top: 10px;
       font-size: 0.9rem;
+      color: #eee;
     }
 
     .footer {
       text-align: center;
       font-size: 0.85rem;
       margin-top: 25px;
-      color: #666;
+      color: #ccc;
     }
 
     .footer a {
-      color: #007bff;
+      color: #00bfff;
       text-decoration: none;
     }
 
     .log {
       display: none;
-      background: #111;
+      background: rgba(0,0,0,0.7);
       color: #0f0;
       font-family: monospace;
       padding: 15px;
@@ -242,13 +245,11 @@
     }
   }
 
-  // Auto update setiap 60 detik
   setInterval(() => {
     updateDateTime();
     checkBattery();
   }, 60000);
 
-  // Load awal
   updateDateTime();
   checkBattery();
 </script>
