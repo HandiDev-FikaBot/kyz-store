@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-image: url('https://i.pinimg.com/originals/fd/c1/f8/fdc1f8dbfa6c2b763b7cfb95d90387bb.jpg');
+      background-image: url('image.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -18,48 +18,51 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      overflow: hidden;
     }
 
     .card {
       max-width: 600px;
-      width: 90%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.5); /* transparan gelap */
       padding: 30px;
       border-radius: 20px;
       backdrop-filter: blur(10px);
+      color: #f1f1f1;
       box-shadow: 0 0 30px rgba(0,0,0,0.4);
     }
 
     h1 {
       text-align: center;
-      font-size: 1.7rem;
-      margin-bottom: 20px;
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      color: #fff;
     }
 
     .info {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       padding: 12px 18px;
       border-radius: 12px;
       margin: 10px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 1rem;
+      color: #f8f8f8;
     }
 
     .info button {
-      background: #3498db;
+      background: #007bff;
       color: #fff;
       padding: 6px 12px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 0.85rem;
       transition: 0.3s;
+      font-size: 0.85rem;
     }
 
     .info button:hover {
-      background: #2980b9;
+      background: #0056d2;
     }
 
     .btn-group {
@@ -80,6 +83,7 @@
       transition: 0.3s;
     }
 
+    #qrisBtn { background: #00b894; }
     #saluranBtn { background: #6366f1; }
     #logBtn { background: #374151; }
 
@@ -88,10 +92,41 @@
       transform: scale(1.03);
     }
 
+    .qris-img {
+      display: none;
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .download-link {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .download-link button {
+      background: #ff7675;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .runtime {
+      background: rgba(255,255,255,0.1);
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+
     .footer {
       text-align: center;
       font-size: 0.85rem;
-      margin-top: 20px;
+      margin-top: 25px;
       color: #ccc;
     }
 
@@ -120,17 +155,26 @@
 <div class="card">
   <h1>💸 Website Payment KYZ STORE</h1>
 
-  <div class="info"><span>💸 DANA</span><span id="dana">0895415559458 <button onclick="copy('dana')">Salin</button></span></div>
-  <div class="info"><span>🌊 Spay</span><span id="gopay">081935990694 <button onclick="copy('gopay')">Salin</button></span></div>
-  <div class="info"><span>🌸 OVO</span><span id="ovo">Tidak Tersedia</span></div>
+  <div class="info"><span>💸 DANA</span><span id="dana">0895415559458<button onclick="copy('dana')">Salin</button></span></div>
+  <div class="info"><span>🌊 Spay</span><span id="gopay">081935990694<button onclick="copy('gopay')">Salin</button></span></div>
+  <div class="info"><span>🌸 OVO</span><span id="ovo">Tidak Tersedia.</span></div>
 
   <div class="btn-group">
-    <button id="saluranBtn" onclick="window.open('Ikuti saluran HanamiCloud di WhatsApp: https://whatsapp.com/channel/0029Vb69nLG23n3aRi3cpf2U', '_blank')">📢 Saluran Hanami</button>
-    <button id="logBtn" onclick="toggleLog()">📄 Show Log</button>
+    <button id="saluranBtn" onclick="window.open('https://whatsapp.com/channel/0029VbAnnj8IyPtJl3otrj2k', '_blank')">📢 Saluran Hanip</button>
+    <button id="logBtn" onclick="toggleLog()">📄 Show Log Activity</button>
   </div>
 
+  <img id="qris-img" class="qris-img" src="https://files.catbox.moe/zgjadx.jpeg" alt="QRIS">
+
+  <a id="downloadBtn" class="download-link" href="https://files.catbox.moe/zgjadx.jpeg" download="QRIS_FikaBot.jpg">
+    <button>⬇️ Download QRIS</button>
+  </a>
+
+  <div class="runtime" id="datetime">🕒 Memuat waktu...</div>
+  <div class="runtime" id="battery">🔋 Memuat baterai...</div>
+
   <div class="footer">
-    © Powered by Handi | <a href="https://hanami.privhandi.my.id" target="_blank">HanamiCloud</a>
+    © Powered by Handi | Website Payment <a href="https://hanami.privhandi.my.id" target="_blank">HanamiCloud</a>
   </div>
 
   <div class="log" id="logArea">🔍 Log aktif...</div>
@@ -153,6 +197,24 @@
     });
   }
 
+  function toggleQRIS() {
+    const qris = document.getElementById("qris-img");
+    const btn = document.getElementById("qrisBtn");
+    const download = document.getElementById("downloadBtn");
+
+    if (qris.style.display === "block") {
+      qris.style.display = "none";
+      download.style.display = "none";
+      btn.innerText = "📷 Tampilkan QRIS";
+      log("❌ QRIS disembunyikan");
+    } else {
+      qris.style.display = "block";
+      download.style.display = "block";
+      btn.innerText = "❌ Sembunyikan QRIS";
+      log("📷 QRIS ditampilkan");
+    }
+  }
+
   function toggleLog() {
     const logElement = document.getElementById("logArea");
     if (logElement.style.display === "block") {
@@ -163,6 +225,33 @@
       log("📄 Log ditampilkan");
     }
   }
+
+  function updateDateTime() {
+    const now = new Date();
+    document.getElementById("datetime").innerText = `🕒 ${now.toLocaleString('id-ID')}`;
+  }
+
+  function checkBattery() {
+    if ('getBattery' in navigator) {
+      navigator.getBattery().then(battery => {
+        const percent = Math.floor(battery.level * 100);
+        const status = battery.charging ? "🔌 Mengisi" : "🔋 Tidak mengisi";
+        document.getElementById("battery").innerText = `🔋 ${percent}% (${status})`;
+        log(`🔋 Baterai: ${percent}% (${status})`);
+      });
+    } else {
+      document.getElementById("battery").innerText = "🔋 Tidak didukung browser.";
+      log("⚠️ Browser tidak mendukung Battery API", "System");
+    }
+  }
+
+  setInterval(() => {
+    updateDateTime();
+    checkBattery();
+  }, 60000);
+
+  updateDateTime();
+  checkBattery();
 </script>
 
 </body>
